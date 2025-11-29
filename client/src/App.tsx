@@ -14,6 +14,8 @@ import MissionDetails from "@/pages/mission-details";
 import Profile from "@/pages/profile";
 import Messages from "@/pages/messages";
 
+import AdminDashboard from "@/pages/admin-dashboard";
+
 function Router() {
   return (
     <Switch>
@@ -25,6 +27,7 @@ function Router() {
       <Route path="/mission/:id" component={MissionDetails} />
       <Route path="/profile" component={Profile} />
       <Route path="/messages" component={Messages} />
+      <Route path="/admin" component={AdminDashboard} />
       {/* Fallback to 404 */}
       <Route component={NotFound} />
     </Switch>
