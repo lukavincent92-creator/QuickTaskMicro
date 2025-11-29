@@ -1,0 +1,201 @@
+Titre : Développer un SaaS complet : “QuickTask” — micro-jobs pour jeunes
+
+Je veux que tu crées l’architecture complète, le design, le backend, et toutes les fonctionnalités pour un SaaS nommé QuickTask.
+Ce service permet aux jeunes de 15–25 ans d’accepter des micro-missions rémunérées créées par des particuliers ou petites entreprises.
+L’objectif principal :
+➡️ rendre les micro-jobs simples, rapides, sans statut auto-entrepreneur, et gérables depuis l’app.
+
+⸻
+
+🎯 OBJECTIF DU PROJET
+
+Créer un site web + application minimaliste permettant :
+	•	aux clients de poster des missions (ménage, aide, livraison locale, retouches vidéo, transcription, etc.)
+	•	aux jeunes de postuler, réaliser la mission, puis recevoir un paiement sécurisé
+	•	à la plateforme de prélever une commission
+	•	d’utiliser Stripe Connect comme système de paiement et d’escrow
+	•	d’avoir une interface simple, moderne, mobile-first
+	•	de permettre l’onboarding utilisateur sans numéro SIRET ni statut pro
+
+⸻
+
+🏗️ STACK TECHNIQUE SOUHAITÉE
+
+Tu es libre de choisir la stack optimale, mais voici mes préférences :
+	•	Frontend : Next.js / React / TailwindCSS
+	•	Backend : Node.js / Express ou NestJS
+	•	Base de données : PostgreSQL
+	•	ORM : Prisma
+	•	Authentification : Clerk, Auth.js ou Supabase Auth
+	•	Paiements : Stripe Connect (accounts express + escrow)
+	•	Notifications : Firebase ou système interne
+	•	Hébergement : Vercel + Supabase + Stripe
+
+Si tu as une meilleure alternative, propose-la mais reste simple.
+
+⸻
+
+🗄️ BASE DE DONNÉES À CRÉER (ULTRA IMPORTANTE)
+
+Merci de créer les 8 tables suivantes avec les champs exacts :
+
+1. Users (jeunes)
+	•	id (UUID)
+	•	first_name
+	•	last_name
+	•	age
+	•	email
+	•	password_hash
+	•	phone
+	•	photo_url
+	•	bio
+	•	location_lat
+	•	location_lng
+	•	skills (JSON)
+	•	rating (float)
+	•	created_at
+
+2. Clients (particuliers / entreprises)
+	•	id
+	•	user_type
+	•	company_name
+	•	email
+	•	password_hash
+	•	phone
+	•	billing_info (JSON)
+	•	created_at
+
+3. Missions
+	•	id
+	•	client_id
+	•	title
+	•	description
+	•	category
+	•	estimated_duration
+	•	price
+	•	location_lat
+	•	location_lng
+	•	is_remote
+	•	required_skills (JSON)
+	•	status
+	•	created_at
+
+4. Mission_Assignments
+	•	id
+	•	mission_id
+	•	worker_id
+	•	assigned_at
+	•	completed_at
+	•	status
+
+5. Payments
+	•	id
+	•	mission_id
+	•	client_id
+	•	worker_id
+	•	amount_total
+	•	amount_to_worker
+	•	platform_fee
+	•	payment_provider
+	•	transaction_id
+	•	status
+	•	created_at
+
+6. Ratings
+	•	id
+	•	mission_id
+	•	rater_id
+	•	rated_user_id
+	•	stars
+	•	comment
+	•	created_at
+
+7. Premium_Subscriptions
+	•	id
+	•	user_id
+	•	plan
+	•	status
+	•	started_at
+	•	ends_at
+	•	provider_transaction_id
+
+8. Notifications
+	•	id
+	•	user_id
+	•	type
+	•	payload
+	•	is_read
+	•	created_at
+
+⸻
+
+💳 INTÉGRATION PAIEMENT OBLIGATOIRE (STRIPE CONNECT)
+
+Intégrer :
+	•	Stripe Connect Express
+	•	Paiement client ➝ escrow
+	•	Libération automatique du paiement à la fin de la mission
+	•	Reversement automatique au jeune
+	•	Commission plateforme configurable (10–20%)
+	•	Webhooks Stripe pour la confirmation
+
+⸻
+
+📱 FONCTIONNALITÉS DU FRONTEND
+
+1. Pages Clients
+	•	page d’inscription / connexion
+	•	création de mission
+	•	gestion des missions postées
+	•	messagerie avec le jeune
+	•	paiement sécurisé
+	•	rating après mission
+
+2. Pages Jeunes
+	•	inscription (âge minimum 15 ans)
+	•	tableau de bord des missions disponibles
+	•	filtres : distance, prix, compétence, catégorie
+	•	acceptation de mission
+	•	preuve de réalisation (photos, message, fichier)
+	•	réception du paiement
+	•	historique des revenus
+	•	abonnement Premium
+
+3. Interface Admin
+	•	gestion des utilisateurs
+	•	validation des missions suspectes
+	•	gestion des paiements
+	•	gestion des litiges
+	•	statistiques
+
+4. UI / UX Style
+	•	moderne, minimaliste
+	•	mobile-first
+	•	couleurs pastels ou néons doux
+	•	style pratique et jeune (TikTok/Stripe vibes)
+
+⸻
+
+🚀 FONCTIONNALITÉS BONUS À INCLURE
+	•	système de notifications push
+	•	chat en temps réel
+	•	vérification SMS
+	•	géolocalisation des missions
+	•	protection anti-arnaque
+	•	système d’évaluation automatique
+
+⸻
+
+📦 SORTIE ATTENDUE (CE QUE TU DOIS PRODUIRE)
+
+Merci de générer :
+	1.	la structure du projet complète
+	2.	toutes les pages Next.js
+	3.	l’API backend (routes REST ou tRPC)
+	4.	le schéma Prisma complet
+	5.	la base de données initialisée
+	6.	l’intégration Stripe Connect fonctionnelle
+	7.	les composants UI (React + Tailwind)
+	8.	des explications pour lancer le projet (README)
+	9.	l’arborescence finale du code
+	10.	un script pour peupler la base de données avec 10 utilisateurs test
